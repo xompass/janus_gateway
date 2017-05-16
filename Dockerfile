@@ -20,10 +20,8 @@ RUN apt-get update && apt-get install -y \
 
 ### Janus ###
 RUN apt-get update && apt-get install -y \
-	libini-config-dev \
 	libmicrohttpd-dev \
 	libjansson-dev \
-	libcollection-dev \
 	libsofia-sip-ua-dev \
 	libglib2.0-dev \
 	libevent-dev \
@@ -31,8 +29,6 @@ RUN apt-get update && apt-get install -y \
 	gengetopt \
 	libssl-dev \
 	openssl \
-	libopus-dev \
-	libgupnp-igd-1.0-dev \
 	libcurl4-openssl-dev
 RUN cd /root && wget https://nice.freedesktop.org/releases/libnice-0.1.13.tar.gz && \
 	tar xvf libnice-0.1.13.tar.gz && \
