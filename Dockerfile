@@ -72,7 +72,7 @@ RUN cd /root/janus-gateway && \
 	make configs
 RUN sed -i "s/admin_http = no/admin_http = yes/g" /opt/janus/etc/janus/janus.transport.http.cfg
 RUN sed -i "s/enabled = no/enabled = yes/g" /opt/janus/etc/janus/janus.eventhandler.sampleevh.cfg
-RUN sed -i "s/^backend.*path$/backend = janus.click2vox.io:9060/g" /opt/janus/etc/janus/janus.eventhandler.sampleevh.cfg
+RUN sed -i "s\^backend.*path$\backend = http://janus.click2vox.io:7777\g" /opt/janus/etc/janus/janus.eventhandler.sampleevh.cfg
 RUN sed -i "s/;rtp_port_range = 20000-40000/rtp_port_range = 10000-10500/g" /opt/janus/etc/janus/janus.cfg
 
 ### Cleaning ###
