@@ -18,6 +18,17 @@ RUN apt-get update && apt-get install -y \
 	unzip \
 	python
 
+###sipre plugin (dev stage)###
+#RUN wget http://creytiv.com/pub/re-0.5.3.tar.gz && tar xvf re-0.5.3.tar.gz && \
+#	cd re-0.5.3 && \
+#	wget https://raw.githubusercontent.com/alfredh/patches/master/re-sip-trace.patch && \
+#	ls && \
+#	make clean && \
+#       patch -p0 -u < re-sip-trace.patch && \
+#	make && \
+#	make install 
+#	nm /usr/local/lib/libre.so | grep tls_alloc
+
 ### Janus ###
 RUN apt-get update && apt-get install -y \
 	libmicrohttpd-dev \
@@ -71,8 +82,12 @@ RUN cd /root/janus-gateway && \
 	make install && \
 	make configs
 RUN sed -i "s/admin_http = no/admin_http = yes/g" /opt/janus/etc/janus/janus.transport.http.cfg
+RUN sed -i "s/https = no/https = yes/g" /opt/janus/etc/janus/janus.transport.http.cfg
+RUN sed -i "s/;secure_port = 8089/secure_port = 8089/g" /opt/janus/etc/janus/janus.transport.http.cfg
+RUN sed -i "s/wss = no/wss = yes/g" /opt/janus/etc/janus/janus.transport.websockets.cfg
+RUN sed -i "s/;wss_port = 8989/wss_port = 8989/g" /opt/janus/etc/janus/janus.transport.websockets.cfg
 RUN sed -i "s/enabled = no/enabled = yes/g" /opt/janus/etc/janus/janus.eventhandler.sampleevh.cfg
-RUN sed -i "s/^backend.*path$/backend = janus.click2vox.io:9060/g" /opt/janus/etc/janus/janus.eventhandler.sampleevh.cfg
+RUN sed -i "s\^backend.*path$\backend = http://janus.click2vox.io:7777\g" /opt/janus/etc/janus/janus.eventhandler.sampleevh.cfg
 RUN sed -i "s/;rtp_port_range = 20000-40000/rtp_port_range = 10000-10500/g" /opt/janus/etc/janus/janus.cfg
 
 ### Cleaning ###
