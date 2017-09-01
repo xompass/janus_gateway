@@ -33,7 +33,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update && apt-get install -y \
 	libmicrohttpd-dev \
 	libjansson-dev \
-	libsofia-sip-ua-dev \
+	#libsofia-sip-ua-dev \
 	libglib2.0-dev \
 	libevent-dev \
 	libtool \
@@ -61,6 +61,15 @@ RUN cd /root && wget https://github.com/cisco/libsrtp/archive/v2.0.0.tar.gz -O l
 	./configure --prefix=/usr --enable-openssl && \
 	make shared_library && \
 	make install
+RUN cd /root && wget http://conf.meetecho.com/sofiasip/sofia-sip-1.12.11.tar.gz && \
+	tar xfv sofia-sip-1.12.11.tar.gz && \
+	cd sofia-sip-1.12.11 && \
+	wget http://conf.meetecho.com/sofiasip/0001-fix-undefined-behaviour.patch && \
+	wget http://conf.meetecho.com/sofiasip/sofiasip-semicolon-authfix.diff && \
+	patch -p1 -u < 0001-fix-undefined-behaviour.patch && \
+	patch -p1 -u < sofiasip-semicolon-authfix.diff && \
+	./configure --prefix=/usr && \
+	make && make install
 RUN cd /root && git clone https://github.com/meetecho/janus-gateway.git
 RUN cd /root/janus-gateway && \
 	./autogen.sh && \
@@ -88,7 +97,9 @@ RUN sed -i "s/wss = no/wss = yes/g" /opt/janus/etc/janus/janus.transport.websock
 RUN sed -i "s/;wss_port = 8989/wss_port = 8989/g" /opt/janus/etc/janus/janus.transport.websockets.cfg
 RUN sed -i "s/enabled = no/enabled = yes/g" /opt/janus/etc/janus/janus.eventhandler.sampleevh.cfg
 RUN sed -i "s\^backend.*path$\backend = http://janus.click2vox.io:7777\g" /opt/janus/etc/janus/janus.eventhandler.sampleevh.cfg
-RUN sed -i "s/;rtp_port_range = 20000-40000/rtp_port_range = 10000-10500/g" /opt/janus/etc/janus/janus.cfg
+#RUN sed -i s/grouping = yes/grouping = no/g /opt/janus/etc/janus/janus.eventhandler.sampleevh.cfg
+RUN sed -i "s/behind_nat = no/behind_nat = yes/g" /opt/janus/etc/janus/janus.plugin.sip.cfg
+RUN sed -i "s/;rtp_port_range = 20000-40000/rtp_port_range = 10000-10200/g" /opt/janus/etc/janus/janus.cfg
 
 ### Cleaning ###
 RUN apt-get clean && apt-get autoclean && apt-get autoremove
