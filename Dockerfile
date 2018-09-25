@@ -47,7 +47,7 @@ RUN cd /root && wget https://nice.freedesktop.org/releases/libnice-0.1.13.tar.gz
 	./configure --prefix=/usr && \
 	make && \
 	make install
-RUN cd /root && git clone git://git.libwebsockets.org/libwebsockets && \
+RUN cd /root && git clone https://libwebsockets.org/repo/libwebsockets && \
 	cd libwebsockets && \
 	git checkout v2.0.2 && \
 	mkdir build && \
