@@ -1,4 +1,5 @@
-# Janus Gateway Docker 
+# Janus Gateway Docker
+Optimized for using it as a WebRTC to SIP gateway
 
 ## Build the image 
 `docker build -t voxbone-janus .`
