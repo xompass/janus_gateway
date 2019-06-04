@@ -16,7 +16,8 @@ RUN apt-get update && apt-get install -y \
 	git \
 	wget \
 	unzip \
-	python
+	python \
+	libconfig-dev
 
 ###sipre plugin (dev stage)###
 #RUN wget http://creytiv.com/pub/re-0.5.3.tar.gz && tar xvf re-0.5.3.tar.gz && \
@@ -26,7 +27,7 @@ RUN apt-get update && apt-get install -y \
 #	make clean && \
 #       patch -p0 -u < re-sip-trace.patch && \
 #	make && \
-#	make install 
+#	make install
 #	nm /usr/local/lib/libre.so | grep tls_alloc
 
 ### Janus ###
@@ -90,16 +91,16 @@ RUN cd /root/janus-gateway && \
 	make && \
 	make install && \
 	make configs
-RUN sed -i "s/admin_http = no/admin_http = yes/g" /opt/janus/etc/janus/janus.transport.http.cfg
-RUN sed -i "s/https = no/https = yes/g" /opt/janus/etc/janus/janus.transport.http.cfg
-RUN sed -i "s/;secure_port = 8089/secure_port = 8089/g" /opt/janus/etc/janus/janus.transport.http.cfg
-RUN sed -i "s/wss = no/wss = yes/g" /opt/janus/etc/janus/janus.transport.websockets.cfg
-RUN sed -i "s/;wss_port = 8989/wss_port = 8989/g" /opt/janus/etc/janus/janus.transport.websockets.cfg
-RUN sed -i "s/enabled = no/enabled = yes/g" /opt/janus/etc/janus/janus.eventhandler.sampleevh.cfg
-RUN sed -i "s\^backend.*path$\backend = http://janus.click2vox.io:7777\g" /opt/janus/etc/janus/janus.eventhandler.sampleevh.cfg
-#RUN sed -i s/grouping = yes/grouping = no/g /opt/janus/etc/janus/janus.eventhandler.sampleevh.cfg
-RUN sed -i "s/behind_nat = no/behind_nat = yes/g" /opt/janus/etc/janus/janus.plugin.sip.cfg
-RUN sed -i "s/;rtp_port_range = 20000-40000/rtp_port_range = 10000-10200/g" /opt/janus/etc/janus/janus.cfg
+RUN sed -i "s/admin_http = no/admin_http = yes/g" /opt/janus/etc/janus/janus.transport.http.jcfg
+RUN sed -i "s/https = no/https = yes/g" /opt/janus/etc/janus/janus.transport.http.jcfg
+RUN sed -i "s/;secure_port = 8089/secure_port = 8089/g" /opt/janus/etc/janus/janus.transport.http.jcfg
+RUN sed -i "s/wss = no/wss = yes/g" /opt/janus/etc/janus/janus.transport.websockets.jcfg
+RUN sed -i "s/;wss_port = 8989/wss_port = 8989/g" /opt/janus/etc/janus/janus.transport.websockets.jcfg
+RUN sed -i "s/enabled = no/enabled = yes/g" /opt/janus/etc/janus/janus.eventhandler.sampleevh.jcfg
+RUN sed -i "s\^backend.*path$\backend = http://janus.click2vox.io:7777\g" /opt/janus/etc/janus/janus.eventhandler.sampleevh.jcfg
+#RUN sed -i s/grouping = yes/grouping = no/g /opt/janus/etc/janus/janus.eventhandler.sampleevh.jcfg
+RUN sed -i "s/behind_nat = no/behind_nat = yes/g" /opt/janus/etc/janus/janus.plugin.sip.jcfg
+RUN sed -i "s/;rtp_port_range = 20000-40000/rtp_port_range = 10000-10200/g" /opt/janus/etc/janus/janus.jcfg
 
 ### Cleaning ###
 RUN apt-get clean && apt-get autoclean && apt-get autoremove
