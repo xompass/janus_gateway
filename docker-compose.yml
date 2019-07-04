@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+    janus_streamer:
+        #image: ...
+        build:
+          context: .
+        env_file: ./.env
+        network_mode: "host"
+        volumes:
+         - ./conf:/opt/janus/etc/janus
+        ulimits:
+          nproc: 65535
+          nofile:
+            soft: 100000
+            hard: 100000

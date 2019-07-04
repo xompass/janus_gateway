@@ -71,14 +71,18 @@ RUN cd /root && wget http://conf.meetecho.com/sofiasip/sofia-sip-1.12.11.tar.gz 
 	patch -p1 -u < sofiasip-semicolon-authfix.diff && \
 	./configure --prefix=/usr && \
 	make && make install
+# datachannel build
+#RUN cd / && git clone https://github.com/sctplab/usrsctp.git && cd /usrsctp && \
+#    git checkout origin/master && git reset --hard 1c9c82fbe3582ed7c474ba4326e5929d12584005 && \
+#    ./bootstrap && \
+#    ./configure && \
+#    make && make install
 RUN cd /root && git clone https://github.com/meetecho/janus-gateway.git
 RUN cd /root/janus-gateway && \
 	./autogen.sh && \
 	./configure \
 		--prefix=/opt/janus \
 		--disable-docs \
-		--disable-plugin-videoroom \
-		--disable-plugin-streaming \
 		--disable-plugin-audiobridge \
 		--disable-plugin-textroom \
 		--disable-plugin-recordplay \
@@ -86,8 +90,7 @@ RUN cd /root/janus-gateway && \
 		--disable-plugin-voicemail \
 		--disable-rabbitmq \
 		--disable-mqtt \
-		--disable-unix-sockets \
-		--disable-data-channels && \
+		--disable-unix-sockets && \
 	make && \
 	make install && \
 	make configs
