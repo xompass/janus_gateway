@@ -77,8 +77,11 @@ RUN cd /root && wget http://conf.meetecho.com/sofiasip/sofia-sip-1.12.11.tar.gz 
 #    ./bootstrap && \
 #    ./configure && \
 #    make && make install
+
 RUN cd /root && git clone https://github.com/meetecho/janus-gateway.git
+# hardcode to commit near the date of the latest commit of this repo
 RUN cd /root/janus-gateway && \
+  git checkout 8bbed757c8cea1076367d3222d7b97a1fa777d81 && \
 	./autogen.sh && \
 	./configure \
 		--prefix=/opt/janus \

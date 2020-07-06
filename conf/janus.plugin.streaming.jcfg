@@ -89,40 +89,40 @@ general: {
 									# handlers (default=true)
 }
 
-gstreamer-sample: {
-	type = "rtp"
-	id = 1
-	description = "Opus/VP8 live stream coming from gstreamer"
-	audio = true
-	video = true
-	audioport = 5002
-	audiopt = 111
-	audiortpmap = "opus/48000/2"
-	videoport = 5004
-	videopt = 100
-	videortpmap = "VP8/90000"
-	secret = "adminpwd"
-}
+#gstreamer-sample: {
+#	type = "rtp"
+#	id = 1
+#	description = "Opus/VP8 live stream coming from gstreamer"
+#	audio = true
+#	video = true
+#	audioport = 5002
+#	audiopt = 111
+#	audiortpmap = "opus/48000/2"
+#	videoport = 5004
+#	videopt = 100
+#	videortpmap = "VP8/90000"
+#	secret = "adminpwd"
+#}
 
-file-live-sample: {
-	type = "live"
-	id = 2
-	description = "a-law file source (radio broadcast)"
-	filename = "/opt/janus/share/janus/streams/radio.alaw"
-	audio = true
-	video = false
-	secret = "adminpwd"
-}
+#file-live-sample: {
+#	type = "live"
+#	id = 2
+#	description = "a-law file source (radio broadcast)"
+#	filename = "/opt/janus/share/janus/streams/radio.alaw"
+#	audio = true
+#	video = false
+#	secret = "adminpwd"
+#}
 
-file-ondemand-sample: {
-	type = "ondemand"
-	id = 3
-	description = "mu-law file source (music)"
-	filename = "/opt/janus/share/janus/streams/music.mulaw"
-	audio = true
-	video = false
-	secret = "adminpwd"
-}
+#file-ondemand-sample: {
+#	type = "ondemand"
+#	id = 3
+#	description = "mu-law file source (music)"
+#	filename = "/opt/janus/share/janus/streams/music.mulaw"
+#	audio = true
+#	video = false
+#	secret = "adminpwd"
+#}
 
 #
 # All browsers also support H.264, often through Cisco's OpenH264 plugin.
@@ -133,13 +133,61 @@ file-ondemand-sample: {
 # example of how to create a simple H.264 mountpoint: you can feed it via
 # an x264enc+rtph264pay pipeline in gstreamer, an ffmpeg script or other.
 #
-h264-sample: {
+detections: {
 	type = "rtp"
 	id = 10
-	description = "H.264 live stream coming from gstreamer"
+	description = "Detections from ./main #1"
 	audio = false
 	video = true
 	videoport = 8004
+	videopt = 126
+	videortpmap = "H264/90000"
+	videofmtp = "profile-level-id=42e01f;packetization-mode=1"
+}
+
+detections2: {
+	type = "rtp"
+	id = 11
+	description = "Detections from ./main #2"
+	audio = false
+	video = true
+	videoport = 8005
+	videopt = 126
+	videortpmap = "H264/90000"
+	videofmtp = "profile-level-id=42e01f;packetization-mode=1"
+}
+
+detections3: {
+	type = "rtp"
+	id = 12
+	description = "Detections from ./main #3"
+	audio = false
+	video = true
+	videoport = 8006
+	videopt = 126
+	videortpmap = "H264/90000"
+	videofmtp = "profile-level-id=42e01f;packetization-mode=1"
+}
+
+detections4: {
+	type = "rtp"
+	id = 13
+	description = "Detections from ./main #4"
+	audio = false
+	video = true
+	videoport = 8007
+	videopt = 126
+	videortpmap = "H264/90000"
+	videofmtp = "profile-level-id=42e01f;packetization-mode=1"
+}
+
+detections5: {
+	type = "rtp"
+	id = 14
+	description = "Detections from ./main #5"
+	audio = false
+	video = true
+	videoport = 8008
 	videopt = 126
 	videortpmap = "H264/90000"
 	videofmtp = "profile-level-id=42e01f;packetization-mode=1"
