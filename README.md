@@ -1,3 +1,9 @@
+# WIP
+
+Temporarily available as rcastill/janus-gateway
+
+---
+
 # Janus Gateway Docker
 Optimized for using it as a Live Streaming Server
 
